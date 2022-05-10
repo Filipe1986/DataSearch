@@ -19,8 +19,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.useDefaultResponseMessages(false)
 				.select()
-				.apis(RequestHandlerSelectors.any())
-				//Remove basic-error-controller from swagger
 				.apis(RequestHandlerSelectors.basePackage("com.filipe.datasearch.controller"))
 				.build();
 	}
