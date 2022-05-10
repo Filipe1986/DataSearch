@@ -1,0 +1,22 @@
+version: '3.1'
+
+volumes:
+  oracle_data:
+      driver: local
+
+services:
+    oracle:
+      container_name: oracle-db
+      image: carloscastillo/rgt-oracle-xe-11g
+      volumes:
+        - oracle_data:/var/lib/oracle/data
+      ports:
+        - 1521:1521
+      expose:
+        - 1521
+
+# host: localhost
+# port: 1521
+# database SID: XE
+# username: SYSTEM
+# password: oracle
