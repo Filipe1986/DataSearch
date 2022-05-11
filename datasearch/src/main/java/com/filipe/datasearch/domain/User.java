@@ -1,7 +1,7 @@
 package com.filipe.datasearch.domain;
 
-import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,22 +26,22 @@ public class User {
     @Column(name = "password")
     private String password;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "createdAt", nullable = false)
-    private Calendar created;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "createdAt", nullable = true)
+    private Date created;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updatedAt", nullable = false)
-    private Calendar updated;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "updatedAt", nullable = true)
+    private Date updated;
 
     @PrePersist
     protected void onCreate() {
-    	created = Calendar.getInstance();
+    	created = Calendar.getInstance().getTime();
     }
 
     @PreUpdate
     protected void onUpdate() {
-    	updated = Calendar.getInstance();
+    	updated = Calendar.getInstance().getTime();
     }
 
 	public String getId() {
@@ -68,19 +68,19 @@ public class User {
 		this.password = password;
 	}
 
-	public Calendar getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
-	public void setCreated(Calendar created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 
-	public Calendar getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(Calendar updated) {
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 	   

@@ -1,29 +1,27 @@
 package com.filipe.datasearch.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.filipe.datasearch.dto.SearchResponseDTO;
+import com.filipe.datasearch.domain.User;
+import com.filipe.datasearch.repository.UserRepository;
 
 
 @Service
 public class SearchService {
 	
-	
+	private UserRepository userRepository;
 
-	public SearchService() {
-		
+	public SearchService(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 	
-	public SearchResponseDTO process(List<Integer> entries) {
-
-	    SearchResponseDTO response = new SearchResponseDTO(); 
-	    
-	    response.setOutputs(new HashMap<String, String>());
-
-		return response;
+	public List<User> find(String entries) {
+		if(entries == null || "".equals(entries)) {
+			return userRepository.findAll();
+		}
+		return userRepository.findByNameContaining(entries.trim());
 	}
 	
 	

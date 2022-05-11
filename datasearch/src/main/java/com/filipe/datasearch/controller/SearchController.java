@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.filipe.datasearch.constants.Constants.Url;
+import com.filipe.datasearch.domain.User;
 import com.filipe.datasearch.dto.SearchResponseDTO;
 import com.filipe.datasearch.service.SearchService;
 
@@ -27,8 +28,8 @@ public class SearchController {
 
 
 	@GetMapping()
-	public ResponseEntity<SearchResponseDTO> fizzbuzz(@RequestParam(required = false) List<Integer> entry) {
-		return ResponseEntity.ok(service.process(entry));
+	public ResponseEntity<List<User>> find(@RequestParam(required = false) String name) {
+		return ResponseEntity.ok(service.find(name));
 	}
 
 }
