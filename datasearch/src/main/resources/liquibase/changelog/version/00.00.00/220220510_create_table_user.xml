@@ -11,6 +11,8 @@
 			</column>
 			<column name="name" type="varchar(50)"/>
 			<column name="password" type="varchar(50)"/>
+			<column name="createdAt" type="date"/>
+			<column name="updatedAt" type="date"/>
 		</createTable>
 
 
