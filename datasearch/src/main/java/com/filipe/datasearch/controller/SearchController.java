@@ -2,6 +2,7 @@ package com.filipe.datasearch.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,11 @@ public class SearchController {
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<User>> find(@RequestParam(required = false) String entry) {
-		return ResponseEntity.ok(service.find(entry));
+	public ResponseEntity<Page<User>> find(@RequestParam(required = false) String entry,
+			@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer size) {
+		
+		return ResponseEntity.ok(service.find(entry, page, size));
 	}
 
 }

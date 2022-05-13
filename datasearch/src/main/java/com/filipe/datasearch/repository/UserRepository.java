@@ -2,25 +2,27 @@ package com.filipe.datasearch.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.filipe.datasearch.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String>  {
+public interface UserRepository extends PagingAndSortingRepository<User, String>  {
 
-	List<User> findByName(String name);
+	Page<User> findByName(String name, Pageable pageable);
 	
 	@Query("SELECT u FROM User u "
 			+ "WHERE u.name LIKE %:name% "
 			+ "or u.password LIKE %:name%")
-	List<User> findNameLike(@Param("name") String name);
+	Page<User> findNameLike(@Param("name") String name, Pageable pageable);
 
 
-	List<User> findByNameContaining(@Param("name") String name);
+	Page<User> findByNameContaining(@Param("name") String name, Pageable pageable);
 
 
 }
