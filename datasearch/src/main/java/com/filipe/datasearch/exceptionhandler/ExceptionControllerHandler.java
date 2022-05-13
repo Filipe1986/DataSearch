@@ -1,4 +1,4 @@
-package com.filipe.datasearch.ExceptionHandler;
+package com.filipe.datasearch.exceptionhandler;
 
 import java.net.BindException;
 import java.util.HashMap;

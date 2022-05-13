@@ -17,11 +17,11 @@ public class SearchService {
 		this.userRepository = userRepository;
 	}
 	
-	public List<User> find(String entries) {
-		if(entries == null || "".equals(entries)) {
+	public List<User> find(String entry) {
+		if(entry == null || "".equals(entry)) {
 			return userRepository.findAll();
 		}
-		return userRepository.findByNameContaining(entries.trim());
+		return userRepository.findNameLike(entry);
 	}
 	
 	

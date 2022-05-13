@@ -14,13 +14,13 @@ public interface UserRepository extends JpaRepository<User, String>  {
 
 	List<User> findByName(String name);
 	
-	
-	@Query(value = "SELECT * "
-				+ " FROM S_USER u "
-				+ " WHERE u.NAME LIKE %:name% ", nativeQuery = true)
+	@Query("SELECT u FROM User u "
+			+ "WHERE u.name LIKE %:name% "
+			+ "or u.password LIKE %:name%")
 	List<User> findNameLike(@Param("name") String name);
 
 
-	List<User> findByNameContaining(String entries);
+	List<User> findByNameContaining(@Param("name") String name);
+
 
 }

@@ -3,7 +3,7 @@ package com.filipe.datasearch.config;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -31,10 +31,16 @@ public class DataLoader implements ApplicationRunner {
 		ArrayList<User> users = new ArrayList<>();
 
 		if (userRepository.count() < 1) {
+			File file = null;
+			BufferedReader reader = null;
+
 			try {
-				File file = ResourceUtils.getFile("classpath:database.csv");
-				InputStream in = new FileInputStream(file);
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+				file = ResourceUtils.getFile("classpath:database.csv");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			try(InputStream in = new FileInputStream(file)){     
+				reader = new BufferedReader(new InputStreamReader(in));
 
 				while (reader.ready()) {
 					String line = reader.readLine();
@@ -49,8 +55,9 @@ public class DataLoader implements ApplicationRunner {
 
 				userRepository.saveAll(users);
 
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
+			} catch (Exception e) {
+				e.printStackTrace();
+
 			}
 		}
 	}
