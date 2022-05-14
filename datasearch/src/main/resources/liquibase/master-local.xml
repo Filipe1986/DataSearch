@@ -4,5 +4,6 @@
 
 
 	<include file="liquibase/changelog/version/00.00.00/220220510_create_table_user.xml" relativeToChangelogFile="false"/>
+	<include file="liquibase/changelog/version/00.00.00/220220514_create_table_priority.xml" relativeToChangelogFile="false"/>
 	
 </databaseChangeLog>

@@ -14,20 +14,30 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
+import com.filipe.datasearch.domain.Priority;
 import com.filipe.datasearch.domain.User;
+import com.filipe.datasearch.repository.PriorityRepository;
 import com.filipe.datasearch.repository.UserRepository;
 
 @Component
 public class DataLoader implements ApplicationRunner {
 
 	private UserRepository userRepository;
+	private PriorityRepository priorityRepository;
 
 	@Autowired
-	public DataLoader(UserRepository userRepository) {
+	public DataLoader(UserRepository userRepository,PriorityRepository priorityRepository) {
 		this.userRepository = userRepository;
+		this.priorityRepository = priorityRepository;
+		
 	}
 
 	public void run(ApplicationArguments args) {
+		insertUsers();
+		insertPriority();
+	}
+
+	private void insertUsers() {
 		ArrayList<User> users = new ArrayList<>();
 
 		if (userRepository.count() < 1) {
@@ -54,6 +64,40 @@ public class DataLoader implements ApplicationRunner {
 				}
 
 				userRepository.saveAll(users);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+		}
+	}
+	
+	private void insertPriority() {
+		ArrayList<Priority> priorities = new ArrayList<>();
+
+		if (priorityRepository.count() < 1) {
+			File file = null;
+			BufferedReader reader = null;
+
+			try {
+				file = ResourceUtils.getFile("classpath:lista_relevancia_1.txt");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			try(InputStream in = new FileInputStream(file)){     
+				reader = new BufferedReader(new InputStreamReader(in));
+
+				while (reader.ready()) {
+					String line = reader.readLine();
+					Priority priority = new Priority();
+
+					priority.setId(line);
+					priority.setOrder(1);
+					
+					priorities.add(priority);
+				}
+
+				priorityRepository.saveAll(priorities);
 
 			} catch (Exception e) {
 				e.printStackTrace();
