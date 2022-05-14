@@ -18,22 +18,11 @@ Use the [database.csv](database.csv) that contains the database. It contains IDs
 It alsos gives you 2 lists of users tha should be used to prioritise the query results.
 The list 1 has priority over the list 2, that has priority over the others.
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
 The results must by paginated by 15 registers.
-
-### Interface REST
-
-Siga o formato abaixo para definir o endpoint.
 
 #### GET `/search?query={term}`
 
-Return all the users as `.json` que combinam com o termo pesquisado, de acordo com a regra de relevância das listas informada anteriormente.
-
-| Parameter  | Description                 |
-|------------|-----------------------------|
-| query      | Termo procurado.                                                                                                 |
-| from       | Posição da página. 0 é a primeira, 1 é a segunda e assim por diante.  Caso não informado, o valor default será 0.|
-| size       | Number of  returned itens. default value is 15                               |
+Return all the users as `.json` respecting the relevancy rules
 
 
 Exemple: 
@@ -68,7 +57,7 @@ Return:
 * 100 k requests per minute
 * ~10 milions searchable itens  
 
-## O que será avaliado e valorizamos
+##
 
 * Use README.md ;
 * Clean and organized code;
@@ -78,6 +67,6 @@ Return:
 
 
 ### Extras
-* Auth;
-* integration test;
-* Usar alguma solução open-source que facilite a pesquisa por relevância;
+* Auth
+* Integration test
+* Relevance Search
