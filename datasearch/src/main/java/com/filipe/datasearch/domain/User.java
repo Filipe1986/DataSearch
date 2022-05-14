@@ -1,7 +1,6 @@
 package com.filipe.datasearch.domain;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -26,22 +25,22 @@ public class User {
     @Column(name = "password")
     private String password;
     
-    @Temporal(TemporalType.DATE)
     @Column(name = "createdAt", nullable = true)
-    private Date created;
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "UTC")
+    private Instant created;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "updatedAt", nullable = true)
-    private Date updated;
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "UTC")
+    private Instant updated;
 
     @PrePersist
     protected void onCreate() {
-    	created = Calendar.getInstance().getTime();
+    	created = Instant.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-    	updated = Calendar.getInstance().getTime();
+    	updated = Instant.now();
     }
 
 	public String getId() {
@@ -68,19 +67,19 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getCreated() {
+	public Instant getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(Instant created) {
 		this.created = created;
 	}
 
-	public Date getUpdated() {
+	public Instant getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(Date updated) {
+	public void setUpdated(Instant updated) {
 		this.updated = updated;
 	}
 	   
