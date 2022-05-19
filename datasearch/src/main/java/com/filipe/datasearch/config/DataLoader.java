@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -33,8 +35,12 @@ public class DataLoader implements ApplicationRunner {
 	}
 
 	public void run(ApplicationArguments args) {
+		
 		insertUsers();
-		insertPriority();
+		insertPriority("lista_relevancia_2.txt", 2);
+		insertPriority("lista_relevancia_1.txt", 1);
+		
+		
 	}
 
 	private void insertUsers() {
@@ -61,6 +67,7 @@ public class DataLoader implements ApplicationRunner {
 					user.setName(userLine[1]);
 					user.setPassword(userLine[2]);
 					users.add(user);
+
 				}
 
 				userRepository.saveAll(users);
@@ -68,41 +75,49 @@ public class DataLoader implements ApplicationRunner {
 			} catch (Exception e) {
 				e.printStackTrace();
 
+			}finally {
+				
 			}
 		}
 	}
 	
-	private void insertPriority() {
+	private void insertPriority(String classPath, int priorityNumber) {
 		ArrayList<Priority> priorities = new ArrayList<>();
 
-		if (priorityRepository.count() < 1) {
-			File file = null;
-			BufferedReader reader = null;
+		File file = null;
+		BufferedReader reader = null;
 
-			try {
-				file = ResourceUtils.getFile("classpath:lista_relevancia_1.txt");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-			try(InputStream in = new FileInputStream(file)){     
-				reader = new BufferedReader(new InputStreamReader(in));
-
-				while (reader.ready()) {
-					String line = reader.readLine();
-					Priority priority = new Priority();
-
-					priority.setId(line);
-					priority.setOrder(1);
-					
-					priorities.add(priority);
-				}
-
-				priorityRepository.saveAll(priorities);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-
-			}
+		try {
+			file = ResourceUtils.getFile("classpath:" + classPath);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
+		try(InputStream in = new FileInputStream(file)){     
+			reader = new BufferedReader(new InputStreamReader(in));
+
+			while (reader.ready()) {
+				String line = reader.readLine();
+				Priority priority = new Priority();
+
+				priority.setId(line);
+				priority.setOrder(priorityNumber);
+				
+				Optional<Priority> findById = priorityRepository.findById(priority.getId());
+				if(findById.isPresent()) {
+					priority = findById.get();
+					priority.setOrder(priorityNumber);
+
+				}
+				priorities.add(priority);
+				
+			}
+
+			priorityRepository.saveAll(priorities);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
 	}
 }

@@ -19,17 +19,17 @@ public class User {
     @Id
     private String id;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
     
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
     
-    @Column(name = "createdAt", nullable = true)
+    @Column(name = "CREATED_AT", nullable = true)
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "UTC")
     private Instant created;
 
-    @Column(name = "updatedAt", nullable = true)
+    @Column(name = "UPDATED_AT", nullable = true)
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "UTC")
     private Instant updated;
 

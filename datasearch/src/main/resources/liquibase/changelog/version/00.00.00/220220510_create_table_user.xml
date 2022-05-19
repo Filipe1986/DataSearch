@@ -4,13 +4,13 @@
 
 	<changeSet id="create_table_user" author="filipe.goncalves">
 		<createTable tableName="S_USER" >
-			<column name="id" type="uuid">
+			<column name="id" type="VARCHAR2(50)">
 				<constraints primaryKey="true" primaryKeyName="s_user_id_pk" />
 			</column>
-			<column name="name" type="varchar(50)"/>
-			<column name="password" type="varchar(50)"/>
-			<column name="createdAt" type="date"/>
-			<column name="updatedAt" type="date"/>
+			<column name="NAME" type="varchar(250)"/>
+			<column name="PASSWORD" type="varchar(250)"/>
+			<column name="CREATED_AT" type="date" />
+			<column name="UPDATED_AT" type="date" />
 		</createTable>
 	</changeSet>
 

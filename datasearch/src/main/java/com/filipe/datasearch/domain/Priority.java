@@ -9,6 +9,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
@@ -19,16 +22,17 @@ public class Priority {
     @Id
     private String id;
 
+    @Column(name = "P_ORDER")
     private Integer order;
-    
-    @Column(name = "createdAt", nullable = true)
+
+    @Column(name = "CREATED_AT", nullable = true)
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "UTC")
     private Instant created;
 
-    @Column(name = "updatedAt", nullable = true)
+    @Column(name = "UPDATED_AT", nullable = true)
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "UTC")
     private Instant updated;
-
+ 
     @PrePersist
     protected void onCreate() {
     	created = Instant.now();

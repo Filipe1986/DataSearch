@@ -5,10 +5,12 @@
 	<changeSet id="create_table_priority" author="filipe.goncalves">
 		
 		<createTable tableName="S_PRIORITY" >
-			<column name="id" type="uuid">
+			<column name="id" type="VARCHAR2(50)">
 				<constraints primaryKey="true" primaryKeyName="s_priority_id_pk" />
 			</column>
-			<column name="order" type="NUMBER(1)"/>
+			<column name="P_ORDER" type="NUMBER(1)"/>
+			<column name="CREATED_AT" type="date" />
+			<column name="UPDATED_AT" type="date" />
 		</createTable>
 
 
