@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -75,8 +74,6 @@ public class DataLoader implements ApplicationRunner {
 			} catch (Exception e) {
 				e.printStackTrace();
 
-			}finally {
-				
 			}
 		}
 	}

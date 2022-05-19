@@ -1,5 +1,6 @@
 package com.filipe.datasearch.domain;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Column;
@@ -14,9 +15,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "S_USER")
-public class User {
+public class User implements Serializable{
 	
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private String id;
 
     @Column(name = "NAME")

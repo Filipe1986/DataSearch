@@ -1,5 +1,6 @@
 package com.filipe.datasearch.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ public class SearchService {
 		this.userRepository = userRepository;
 	}
 	
+	@Cacheable(value="User", key="#entry")
 	public Page<User> find(String entry, Integer page, Integer size) {
 		
 		page = page == null ? 0 : page;
