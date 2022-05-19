@@ -30,6 +30,12 @@ public class ExceptionControllerHandler {
     private Object notFound(Exception ex, HttpServletRequest request) {
     	return mountError(ex);
     }
+    
+    @ExceptionHandler(value = InternalError.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    private Object serverError(Exception ex, HttpServletRequest request) {
+    	return mountError(ex);
+    }
 
     private HashMap<Object, Object> mountError(Exception e) {
         var error = new HashMap<>();
