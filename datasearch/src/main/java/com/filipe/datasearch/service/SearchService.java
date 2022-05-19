@@ -25,14 +25,12 @@ public class SearchService {
 		size = size == null || size == 0 ? 15 : size;
 		
 		Pageable pageSortedByName = 
-		  PageRequest.of(page, size, Sort.by("name"));
+		PageRequest.of(page, size, Sort.by("name"));
 	
 		if(entry == null || "".equals(entry)) {
 			return userRepository.findAll(pageSortedByName);
 		}
-		
 
-		
 		return userRepository.findNameLike(entry, pageSortedByName);
 	}
 	
