@@ -20,7 +20,7 @@ public class SearchService {
 		this.userRepository = userRepository;
 	}
 	
-	@Cacheable(value="User", key="#entry")
+	@Cacheable(value="User", key="#entry", condition = "#entry != null" )
 	public Page<User> find(String entry, Integer page, Integer size) {
 		
 		page = page == null ? 0 : page;
